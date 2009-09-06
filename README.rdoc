@@ -4,7 +4,7 @@ Simple caching utility that persists arbitrary data in files.
 
 == Install
 
-	$ gem install file_cache -s http://gems.github.com
+	$ gem install phoet-file_cache -s http://gems.github.com
 
 == Dependencies
 
