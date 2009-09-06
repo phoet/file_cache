@@ -15,6 +15,7 @@ require 'tmpdir'
 #   file_cache :cache_token_name do
 #     #some_stuff_that_should_be_cached_executed_here
 #   end
+#
 module FileCache
   
   # configures the directory where file_cache persists the payload
