@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'file_cache'
-  s.version = '0.0.1'
+  s.version = '0.1.0'
   s.rubyforge_project = 'none'
 
   s.author = 'Peter Schröder'
@@ -14,4 +14,6 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ['README.rdoc']
   s.files = [ 'README.rdoc', 'lib/file_cache.rb' ]
   s.test_files = [ 'test/test_file_cache.rb' ]
+  
+  s.add_dependency('activesupport', '>= 2.2.2')
 end
