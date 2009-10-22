@@ -26,16 +26,17 @@ module ActiveSupport
       def exist?(key, options = nil)
         log("exist?", key, options)
       end
-      
+
       private
-      
+
       def file_name(key)
         FileHelper::file_cache_name FileHelper::tmpdir, key
       end
+
+      def log(operation, key, options)
+        puts("Cache #{operation}: #{key}#{options ? " (#{options.inspect})" : ""}")
+      end
       
-        def log(operation, key, options)
-          puts("Cache #{operation}: #{key}#{options ? " (#{options.inspect})" : ""}")
-        end
     end
   end 
 end

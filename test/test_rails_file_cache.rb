@@ -12,7 +12,7 @@ class TestRailsFileCache < Test::Unit::TestCase
     @matcher = "matcher"
     @options = {:option => 'any'}
   end
-  
+
   def test_read
     @cache.read(@key, @options)
   end
@@ -32,5 +32,5 @@ class TestRailsFileCache < Test::Unit::TestCase
   def test_exist?
     @cache.exist?(@key, @options)
   end
-  
+
 end
