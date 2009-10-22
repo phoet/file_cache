@@ -1,4 +1,4 @@
-require 'tmpdir'
+require 'file_helper'
 
 # = FileCache
 #
@@ -25,15 +25,15 @@ module FileCache
   #
   # the +caching_time_in_minutes+ defaults to half an hour
   def file_cache(token, caching_time_in_minutes=30, &payload)
-    file = file_cache_name(token)
-    if not_cached_or_to_old? file, caching_time_in_minutes
+    file = file_name token
+    if FileHelper::not_cached_or_to_old? file, caching_time_in_minutes
       load_from_file_cache file
     else
       write_to_file_cache file, (yield payload)
     end
   end
   
-  private
+  protected
   
   # writes given +payload+ to given +file+
   def write_to_file_cache(file, payload)
@@ -52,21 +52,15 @@ module FileCache
     end
   end
   
-  # checks if given +file+ already exists or if it expires the +caching_time_in_minutes+
-  def not_cached_or_to_old?(file, caching_time_in_minutes)
-    File.exists?(file) and (File.mtime(file) + caching_time_in_minutes * 60) > Time.new
-  end
-  
-  # gets the name of the file-cache for given +token+
-  def file_cache_name(token)
-    name = "#{token}".gsub(/[^\w]/, '_')
-    "#{file_cache_dir}/#{name}.mrs"
+  # gets the name of the file to cache for given +token+
+  def file_name(token)
+    FileHelper::file_cache_name(file_cache_dir, token)
   end
   
   # gets the dir where to put the file-caches
   # defaults to _tmpdir_
   def file_cache_dir
-    @file_cache_dir || Dir.tmpdir
+    @file_cache_dir || FileHelper::tmpdir
   end
   
 end
