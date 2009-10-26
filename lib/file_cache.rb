@@ -26,7 +26,7 @@ module FileCache
   # the +caching_time_in_minutes+ defaults to half an hour
   def file_cache(token, caching_time_in_minutes=30, &payload)
     file = file_name token
-    if FileHelper::not_cached_or_to_old? file, caching_time_in_minutes
+    if FileHelper.not_cached_or_to_old? file, caching_time_in_minutes
       load_from_file_cache file
     else
       write_to_file_cache file, (yield payload)
@@ -54,13 +54,13 @@ module FileCache
 
   # gets the name of the file to cache for given +token+
   def file_name(token)
-    FileHelper::file_cache_name(file_cache_dir, token)
+    FileHelper.file_cache_name(file_cache_dir, token)
   end
 
   # gets the dir where to put the file-caches
   # defaults to _tmpdir_
   def file_cache_dir
-    @file_cache_dir || FileHelper::tmpdir
+    @file_cache_dir || FileHelper.tmpdir
   end
 
 end

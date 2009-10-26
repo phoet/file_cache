@@ -16,7 +16,12 @@ class FileHelper
     # gets the name of the file-cache for given +token+ and +file_cache_dir+
     def file_cache_name(file_cache_dir, token)
       name = "#{token}".gsub(/[^\w]/, '_')
-      "#{file_cache_dir}/#{name}.mrs"
+      "#{file_cache_dir}/#{name}.#{extension}"
+    end
+    
+    # gets the +extension+ of the file-cache
+    def extension
+      "fc"
     end
 
     # gets the +tmpdir+ on the current machine
