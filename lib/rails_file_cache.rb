@@ -5,11 +5,12 @@ module ActiveSupport
   module Cache
     class RailsFileCache < Store
 
-      def read(key, options = nil)
+      def read(key, options = {})
         log("read", key, options)
         name = file_name key
-        puts "reading from file=#{name}"
-        File.read(name) if File.exists? name
+        expires_in = (options[:expires_in] || 30.seconds)
+        puts "reading from file=#{name} with expires=#{expires_in}"
+        File.read(name) if FileHelper.not_cached_or_to_old?(name, expires_in)
       end
 
       def write(key, value, options = nil)

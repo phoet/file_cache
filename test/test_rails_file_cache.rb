@@ -1,6 +1,4 @@
-$:.unshift File.join(File.dirname(__FILE__),'..','..','lib')
-
-require 'test/unit'
+require 'test_helper'
 require 'rails_file_cache'
 
 class TestRailsFileCache < Test::Unit::TestCase
@@ -17,6 +15,7 @@ class TestRailsFileCache < Test::Unit::TestCase
     assert_nil(@cache.read(@key, @options))
     @cache.write(@key, @value, @options)
     assert_equal(@value, @cache.read(@key, @options))
+    assert_equal(nil, @cache.read(@key, :expires_in=>0.seconds))
   end
 
   def test_write
@@ -32,7 +31,7 @@ class TestRailsFileCache < Test::Unit::TestCase
     @cache.write('aaaa', @value, @options)
     @cache.write('aaa', @value, @options)
     @cache.write('aa', @value, @options)
-    assert_equal(3, @cache.delete_matched(/a+/, @options))
+    assert_equal(3, @cache.delete_matched(/aa+/, @options))
     assert_nil(@cache.read('aaaa', @options))
     assert_nil(@cache.read('aaa', @options))
     assert_nil(@cache.read('aa', @options))

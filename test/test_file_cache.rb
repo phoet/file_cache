@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'file_cache'
 
 class TestFileCache < Test::Unit::TestCase
 
