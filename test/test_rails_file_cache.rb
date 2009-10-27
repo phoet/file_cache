@@ -17,6 +17,17 @@ class TestRailsFileCache < Test::Unit::TestCase
     assert_equal(@value, @cache.read(@key, @options))
     assert_equal(nil, @cache.read(@key, :expires_in=>0.seconds))
   end
+  
+  
+  def test_fetch
+    count = 1
+    @cache.fetch(@key, :expires_in=>30.seconds) {count += 1}
+    @cache.fetch(@key, :expires_in=>30.seconds) {count += 1}
+    @cache.fetch(@key, :expires_in=>30.seconds) {count += 1}
+    assert_equal(count, 2)
+    @cache.fetch(@key, :expires_in=>0.seconds) {count += 1}
+    assert_equal(count, 3)
+  end
 
   def test_write
     assert_equal(@value, @cache.write(@key, @value, @options))
